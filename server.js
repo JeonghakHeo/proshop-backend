@@ -2,19 +2,20 @@ import path from 'path'
 import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
+import cors from 'cors'
 import products from './routes/products.js'
 import user from './routes/user.js'
 import order from './routes/order.js'
 import upload from './routes/upload.js'
 import connectDB from './config/db.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
-
 dotenv.config()
 
 connectDB()
 
 const app = express()
 
+app.use(cors({ origin: 'https://proshop-backend-ihag.onrender.com/' }))
 app.use(express.json())
 
 app.use('/api/products', products)
@@ -28,7 +29,7 @@ const frontendPath = path.resolve(
   '/Users/charlie/Documents/Projects/Udemy/Brad Traversy/Proshop-frontend'
 )
 
-console.log(frontendPath)
+console.log(path.join(frontendPath, '/build'))
 app.use('/uploads', express.static(path.join(frontendPath, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
