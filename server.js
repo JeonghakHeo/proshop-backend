@@ -24,14 +24,18 @@ app.use('/api/upload', upload)
 
 app.get('/api/config/pay', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
 
-const __dirname = path.resolve()
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+const frontendPath = path.resolve(
+  '/Users/charlie/Documents/Projects/Udemy/Brad Traversy/Proshop-frontend'
+)
+
+console.log(frontendPath)
+app.use('/uploads', express.static(path.join(frontendPath, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/build')))
+  app.use(express.static(path.join(frontendPath, '/build')))
 
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+    res.sendFile(path.resolve(frontendPath, 'build', 'index.html'))
   )
 } else {
   app.get('/', (req, res) => {
