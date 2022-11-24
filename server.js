@@ -15,7 +15,7 @@ connectDB()
 
 const app = express()
 
-app.use(cors({ origin: 'https://proshop-backend-ihag.onrender.com/' }))
+app.use(cors({ origin: 'https://proshop-frontend-h211.onrender.com' }))
 app.use(express.json())
 
 app.use('/api/products', products)
